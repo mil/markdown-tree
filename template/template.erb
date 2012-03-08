@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title><%= siteTitle %></title>
+		<link type="text/css" rel="stylesheet" href="/css/style.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="main">
+
+
+				<!-- Build Breadcrumbs out -->
+				<div id="path">
+					<a href='/'><%= siteTitle %></a>
+
+					<% fullPath = '' %>
+
+					<% for pathPart in path %>
+						<% fullPath = fullPath + '/' + pathPart %>
+						&raquo;&nbsp;&nbsp;<a href="<%= fullPath %>"><%= pathPart%></a> 
+					<% end %>
+
+				</div>
+
+
+				<!-- Build Navigation Children out -->		
+				<div id="menu">
+					<ul>
+						<% for directory in children[:directories] %>
+							<li class="folder">
+							<a href="<%= fullPath + "/" + directory %>">
+								<%= directory %>
+							</a>
+							</li>
+						<% end %>
+
+						<% for page in children[:pages] %>
+							<% classes = "" %>
+							<% if currentFile == page %>
+								<% classes = "current" %>
+							<% end %> 
+							<li class="page <%= classes %>">
+							<a href="<%= fullPath + "/" + page %>">
+								<%= page %>
+							</a>
+							</li>
+						<% end %>
+
+					</ul>
+				</div>
+
+
+				<div id="content"><%= content %></div>
+
+			</div>
+
+			<div id="footer">
+				<a href="http://validator.w3.org/check?uri=referer">Validate</a> &nbsp;::&nbsp; Generated: <%= Time.now %>
+			</div>
+		</div>
+	</body>
+</html>

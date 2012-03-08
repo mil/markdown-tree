@@ -1,0 +1,167 @@
+body {
+	font-family: Arial, sans-serif;
+	color: #000;
+	background: #fff;
+	line-height: 20px;
+}
+
+
+h1 {
+	color: #641818;
+	border-bottom: 1px solid #d0d0d0;
+	font-size: 25px;
+	line-height: 38px;
+}
+
+h2 {
+	color: #641818;
+	border-bottom: 1px dashed #d0d0d0;
+	font-size: 23px;
+	line-height: 30px;
+}
+
+
+h3 {
+	color: #353f6e;
+	font-size: 20px;
+}
+
+
+h4 {
+	color: #641818;
+	font-size: 18px;
+}
+
+
+h5 {
+	color: #641818;
+	font-size: 16px;
+}
+
+h6 {
+	color: #641818;
+	font-size: 15px;
+}
+
+ul {
+	border: 1px dotted gray;
+	margin: 5px;
+	
+}
+li {
+	padding: 5px;
+}
+
+ul li ul {
+	background: #eeeeee;
+}
+
+ul li ul li {
+	background: white;
+}
+
+ul li ul li ul {
+	background: #eeeeee;
+}
+
+
+
+a {
+	color: #bb2828;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff0000;
+}
+
+#content {
+	border: 1px solid #dfdfdf;
+	padding: 10px;
+}
+
+#footer {
+
+	margin-top: 5px;
+	border: 1px solid #dfdfdf;
+	font-size: 12px;
+	padding: 10px 5px;
+	text-align: right;
+
+	background-color: #f4f4f4;
+
+	clear: both;
+	overflow: hidden;
+}
+
+
+
+
+#path {
+	border: 1px solid #dfdfdf;
+	padding: 5px 10px;	
+	background: #eaeaea;
+}
+
+#path a {
+	padding-left: 20px; 
+	padding-right: 5px;
+	font-size: 13px;
+
+	background-image: url('/images/folder.png');
+	background-repeat: no-repeat;
+	background-position: left center;
+
+
+
+}
+
+#path a:last-child {
+	color: black;
+	font-size: 14px;
+}
+
+
+#menu {
+	border: 1px solid #dfdfdf;
+	border-top: none;
+	padding: 5px 10px;	
+	margin-bottom: 5px;	
+	background: #f4f4f4;
+}
+
+#menu ul {
+	margin: 0;
+	border: none;
+}
+
+#menu li {
+
+	background-image: url('/images/page.png');
+	background-repeat: no-repeat;
+	background-position: left center;
+
+
+	display: inline-block;
+	list-style: none;
+	font-size: 13px;
+	padding-left: 20px;
+	padding-right: 10px;
+	line-height: 10px;
+	border-right: 1px dotted #d4d4d4;
+}
+
+#menu li.page {
+	background-image: url('/images/page.png');
+}
+
+#menu li.folder {
+	background-image: url('/images/folder.png');
+}
+
+#menu li.current {
+	background-image: url('/images/page_edit.png');
+}
+#menu li.current a {
+	color: black;
+}
