@@ -27,7 +27,7 @@ Folder Structure / Customization
 - **config.yaml** : 3 option config used by markdown-tree.rb
 - **template/** : Contains the default template
 	* **template.erb** : ERB template pages are built from
-	* **content/** : Contains the hierarchy of markdown files for your Sites
+- **content/** : Contains the hierarchy of markdown files for your Sites
 
 Example Sites
 -------------
