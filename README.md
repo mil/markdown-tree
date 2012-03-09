@@ -22,27 +22,27 @@ Installation and Usage
 - Run the script: ```ruby markdown-tree.rb```
 
 Folder Structure / Customization
--------------
+--------------------------------
 - **markdown-tree.rb** : The ruby script to run which serves your site
 - **config.yaml** : 3 option config used by markdown-tree.rb
 - **template/** : Contains the default template
-	 * **template.erb** : ERB template pages are built from
-- **content/** : Contains the hierarchy of markdown files for your site
+	* **template.erb** : ERB template pages are built from
+	* **content/** : Contains the hierarchy of markdown files for your Sites
 
- Example Sites
- -------------
- - [Default Example Site](http://markdown-tree.bladdo.net/)
- - [My Personal Notes System](http://notes.bladdo.net) (for notes I take in class at Virginia Tech)
+Example Sites
+-------------
+- [Default Example Site](http://markdown-tree.bladdo.net/)
+- [My Personal Notes System](http://notes.bladdo.net) (for notes I take in class at Virginia Tech)
 
- Todos
- --------------------------------
- - Clean up the default template's css
- - Create example site using same example structure in repo
- - Add more error handling for reading file
- - Add support for .mkd, .markdown, and more extensions
+Todos
+--------------------------------
+- Clean up the default template's css
+- Create example site using same example structure in repo
+- Add more error handling for reading file
+- Add support for .mkd, .markdown, and more extensions
 
 
- Credits
- -------
- - Inspiration taken from static site generator mksite [mksite](http://zziplib.sourceforge.net/mksite/)
- - Icons are [famfam's silk set](http://www.famfamfam.com/lab/icons/silk/)
+Credits
+-------
+- Inspiration taken from static site generator mksite [mksite](http://zziplib.sourceforge.net/mksite/)
+- Icons are [famfam's silk set](http://www.famfamfam.com/lab/icons/silk/)
