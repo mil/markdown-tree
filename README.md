@@ -20,6 +20,7 @@ Installation and Usage
 - Go into the directory: ```cd markdown-tree```
 - Install the Sinatra gem: ```gem install sinatra```
 - Run the script: ```ruby markdown-tree.rb```
+	* Visit http://localhost:4567 to browse your site!
 
 Folder Structure / Customization
 --------------------------------
