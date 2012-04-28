@@ -25,7 +25,7 @@ Installation and Usage
 Folder Structure / Customization
 --------------------------------
 - **markdown-tree.rb** : The ruby script to run which serves your site
-- **config.yaml** : 3 option config used by markdown-tree.rb
+- **config.yaml** : 4 option config used by markdown-tree.rb
 - **template/** : Contains the default template
 	* **template.erb** : ERB template pages are built from
 - **content/** : Contains the hierarchy of markdown files for your Sites
@@ -37,11 +37,8 @@ Example Sites
 
 Todos
 --------------------------------
-- Clean up the default template's css
-- Create example site using same example structure in repo
+- Clean up the default template's CSS 
 - Add more error handling for reading file
-- Add support for .mkd, .markdown, and more extensions
-
 
 Credits
 -------

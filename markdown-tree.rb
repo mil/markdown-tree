@@ -4,19 +4,19 @@ require 'sinatra'
 require 'yaml'
 
 #Config
-config = YAML.load_file('config.yaml')
+$config = YAML.load_file('config.yaml')
 
 #Set up Sinatra Config
-set :views         => "#{settings.root}/#{config['template-folder']}/",
-	:public_folder => "#{settings.root}/#{config['template-folder']}/",
-	:static        => true
+set	:views => "#{settings.root}/#{$config['template-folder']}/",
+	:public_folder => "#{settings.root}/#{$config['template-folder']}/",
+	:static => true
 
 #All Pages
 get '/*' do
 	path = params[:splat].join.split("/")
 
 	#File or folder
-	folder = "#{Dir.getwd}/#{config['hierarchy-folder']}/#{params[:splat].join}"
+	folder = "#{Dir.getwd}/#{$config['hierarchy-folder']}/#{params[:splat].join}"
 	if File.directory?(folder) then
 		file = "index"
 	else
@@ -29,33 +29,33 @@ get '/*' do
 
 	#Render Markdown
 	begin
-		content = File.read("#{folder}/#{file}.md")
+		content = File.read("#{folder}/#{file}.#{$config['markdown-extension']}")
 	rescue
 		content = ""
 	end
 
 	erb :template, :locals => {
-		:siteTitle => config['site-title'], 
+		:siteTitle => $config['site-title'], 
 
 		:currentFile => file,
 		:path => path,
 		:children => children,
 
-		:content => markdown(content),
+		:content => markdown(content)
 	}
 end
 
 #Children Array
 def getChildren(folderPath)
 	children = {
-		:directories =>[],
+		:directories => [],
 		:pages => []
 	}
 
 	#Loop through each child
 	Dir.foreach(folderPath) do |child|
 		# Skip if index or . or ..
-		next if child.match(/^(index.md|\.+)$/)
+		next if child.match(/^(index.#{$config['markdown-extension']}|\.+)$/)
 
 		#Children folder or file
 		if File.directory?("#{folderPath}/#{child}") then 

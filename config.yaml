@@ -6,3 +6,6 @@ template-folder: template
 
 #Hierarchy folder, should contain tree of folders and markdown files
 hierarchy-folder: content 
+
+#Markdown extension you use for your files (md, mkd, markdown, etc.)
+markdown-extension: md
