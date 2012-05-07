@@ -18,7 +18,7 @@ Installation and Usage
 -----
 - Clone the repo: ```git clone git://github.com/mil/markdown-tree.git```
 - Go into the directory: ```cd markdown-tree```
-- Install the Sinatra gem: ```gem install sinatra```
+- Install the Sinatra and Redcarpet gems: ```gem install redcarpet sinatra```
 - Run the script: ```ruby markdown-tree.rb```
 	* Visit http://localhost:4567 to browse your site!
 
