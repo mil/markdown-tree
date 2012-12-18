@@ -3,7 +3,6 @@ require 'rubygems'
 require 'sinatra'
 require 'redcarpet'
 require 'yaml'
-#require 'pp'
 
 #Config
 $config = YAML.load_file('config.yaml')
@@ -39,7 +38,6 @@ get '/*' do
 		:path => path,
 		:children => children,
 
-#		:content => markdown(content)
 		:content => content
 	}
 end
@@ -53,7 +51,6 @@ post '/*' do
 	file = getFileName(folder, path)
 	full_path = "#{folder}/#{file}.#{$config['markdown-extension']}"
 
-	#TODO: error handling
 	File.open(full_path, 'w') do |f|
 		f.write params[:content]
 	end
