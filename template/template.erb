@@ -4,25 +4,96 @@
 		<meta charset="utf-8">
 		<title><%= siteTitle %></title>
 		<link type="text/css" rel="stylesheet" href="/css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="/css/jquery-wysiwym/wysiwym.css"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type='text/javascript' src='/js/jquery-wysiwym/wysiwym.js'></script>
+		<script type='text/javascript' src='/js/jquery-wysiwym/showdown.js'></script>	
+		<script type='text/javascript'>
+			$(function() {
+				//initialize the editor
+				$('#content').wysiwym(Wysiwym.Markdown, {
+					helpEnabled: true,
+					helpToggle: true
+				});
+
+				//configuration for the update process
+				var prevValue = '<empty>';
+				var previewOutput = $('#preview');
+				var previewTextarea = $('#content');
+				var showdown = new Showdown.converter();
+
+				// update the text area
+				var updateTextareaPreview = function(content) {
+					var newHtml = $("<div>"+ showdown.makeHtml(content) +"</div>");
+					previewOutput.html(newHtml);
+				}
+
+				/**
+				 * update the server
+				 *
+				 * @param opts.content the new contents of the target file
+				 * @param opts.oncomplete the callback to invoke after the server response
+				 */
+				var updateServer = function(opts){
+					$.ajax({
+						type: "POST",
+						url: window.location.pathname,
+						data: {
+							content: opts.content,
+						},
+						success: function(data, textStatus, jqXHR){
+							console.log("Updated Server");
+						},
+						failure: function(jqXHR, textStatus, error){
+							alert("Failed to update the file.");
+						},
+						// if the server has been updated, wait a while before updating it again
+						complete: opts.onComplete
+					});
+				};
+
+				/**
+				 * Check for changes, update, and set an appropriate timeout before trying again.
+				 */
+				var update = function(){
+					var newValue = previewTextarea.val();
+					var changed = newValue != prevValue;
+
+					//if the server gets updated, wait a bit longer before updating again
+					if (changed) {
+						prevValue = newValue;
+						updateTextareaPreview(newValue);
+						updateServer({
+							content: newValue,
+							onComplete: function() { 
+								setTimeout(update, 1000)
+							}
+						});
+					}
+					else {
+						setTimeout(update, 100);
+					}
+				}
+
+				//Kick off the update process
+				update();
+
+			});
+		</script>
 	</head>
 	<body>
 		<div id="container">
 			<div id="main">
 
-
 				<!-- Build Breadcrumbs out -->
 				<div id="path">
 					<a href='/'><%= siteTitle %></a>
-
 					<% fullPath = '' %>
-
 					<% for pathPart in path %>
 						<% fullPath = fullPath + '/' + pathPart %>
 						&raquo;&nbsp;&nbsp;<a href="<%= fullPath %>"><%= pathPart%></a> 
 					<% end %>
-
 				</div>
-
 
 				<!-- Build Navigation Children out -->		
 				<div id="menu">
@@ -51,7 +122,10 @@
 				</div>
 
 
-				<div id="content"><%= content %></div>
+				<div id="content-container">
+						<div class="column-50"><textarea id="content"><%= content %></textarea></div>
+						<div class="column-50"><span style="height: 52px; display: block;"></span><div id="preview"></div></div>
+				</div>
 
 			</div>
 

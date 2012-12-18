@@ -16,21 +16,17 @@ set	:views => "#{settings.root}/#{$config['template-folder']}/",
 get '/*' do
 	path = params[:splat].join.split("/")
 
-	#File or folder
+	#get the full path to the file
 	folder = "#{Dir.getwd}/#{$config['hierarchy-folder']}/#{params[:splat].join}"
-	if File.directory?(folder) then
-		file = "index"
-	else
-		folder.gsub!(/\/[^\/]+$/,"")
-		file = path.pop
-	end
+	file = getFileName(folder, path)
+	full_path = "#{folder}/#{file}.#{$config['markdown-extension']}"
 
 	#Get children of current folder
 	children = getChildren(folder)
 
 	#Render Markdown
 	begin
-		content = File.read("#{folder}/#{file}.#{$config['markdown-extension']}")
+		content = File.read(full_path)
 	rescue
 		content = ""
 	end
@@ -42,9 +38,37 @@ get '/*' do
 		:path => path,
 		:children => children,
 
-		:content => markdown(content)
+		:content => content
 	}
 end
+
+#when editing a file
+post '/*' do
+	path = params[:splat].join.split("/")
+
+	#get the full path to the file
+	folder = "#{Dir.getwd}/#{$config['hierarchy-folder']}/#{params[:splat].join}"
+	file = getFileName(folder, path)
+	full_path = "#{folder}/#{file}.#{$config['markdown-extension']}"
+
+	File.open(full_path, 'w') do |f|
+		f.write params[:content]
+	end
+
+	return "Successfully wrote to file."
+end
+
+#If the target is a directory, get the index file, else return the filename
+def getFileName(folder, path)
+	if File.directory?(folder) then
+		file = "index"
+	else
+		folder.gsub!(/\/[^\/]+$/,"")
+		file = path.pop
+	end
+	return file
+end
+	
 
 #Children Array
 def getChildren(folderPath)
