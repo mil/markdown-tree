@@ -10,26 +10,74 @@
 		<script type='text/javascript' src='/js/jquery-wysiwym/showdown.js'></script>	
 		<script type='text/javascript'>
 			$(function() {
+				//initialize the editor
 				$('#content').wysiwym(Wysiwym.Markdown, {
 					helpEnabled: true,
 					helpToggle: true
 				});
 
-				// Update the Debug Text every half second
+				//configuration for the update process
 				var prevValue = '<empty>';
 				var previewOutput = $('#preview');
 				var previewTextarea = $('#content');
 				var showdown = new Showdown.converter();
 
-				var updateTextareaPreview = function() {
+				// update the text area
+				var updateTextareaPreview = function(content) {
+					var newHtml = $("<div>"+ showdown.makeHtml(content) +"</div>");
+					previewOutput.html(newHtml);
+				}
+
+				/**
+				 * update the server
+				 *
+				 * @param opts.content the new contents of the target file
+				 * @param opts.oncomplete the callback to invoke after the server response
+				 */
+				var updateServer = function(opts){
+					$.ajax({
+						type: "POST",
+						url: window.location.pathname,
+						data: {
+							content: opts.content,
+						},
+						success: function(data, textStatus, jqXHR){
+							console.log("Updated Server");
+						},
+						failure: function(jqXHR, textStatus, error){
+							alert("Failed to update the file.");
+						},
+						// if the server has been updated, wait a while before updating it again
+						complete: opts.onComplete
+					});
+				};
+
+				/**
+				 * Check for changes, update, and set an appropriate timeout before trying again.
+				 */
+				var update = function(){
 					var newValue = previewTextarea.val();
-					if (newValue != prevValue) {
+					var changed = newValue != prevValue;
+
+					//if the server gets updated, wait a bit longer before updating again
+					if (changed) {
 						prevValue = newValue;
-						var newHtml = $("<div>"+ showdown.makeHtml(newValue) +"</div>");
-						previewOutput.html(newHtml);
+						updateTextareaPreview(newValue);
+						updateServer({
+							content: newValue,
+							onComplete: function() { 
+								setTimeout(update, 1000)
+							}
+						});
+					}
+					else {
+						setTimeout(update, 100);
 					}
 				}
-				setInterval(updateTextareaPreview, 200);
+
+				//Kick off the update process
+				update();
+
 			});
 		</script>
 	</head>
