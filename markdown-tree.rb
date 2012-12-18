@@ -42,7 +42,8 @@ get '/*' do
 		:path => path,
 		:children => children,
 
-		:content => markdown(content)
+#		:content => markdown(content)
+		:content => content
 	}
 end
 

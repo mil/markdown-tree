@@ -75,9 +75,25 @@ a:hover {
 	color: #ff0000;
 }
 
+textarea {
+	display: block;
+	font-size: 12px;
+    height: 400px;
+    margin-top: 3px;
+    padding: 3px;
+    width: 90%;
+}
+
 #content {
 	border: 1px solid #dfdfdf;
 	padding: 10px;
+}
+
+.column-50 {
+	float: left;
+	width:50%;
+	padding: 0;
+	margin: 0;
 }
 
 #footer {
