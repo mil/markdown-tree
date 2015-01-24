@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'rubygems'
 require 'sinatra'
 require 'redcarpet'
 require 'yaml'
